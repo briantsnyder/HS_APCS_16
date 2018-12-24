@@ -1,0 +1,238 @@
+/**
+ * Purpose:  This class defines a Candidate by its name and number of votes.
+ *
+ * Brian Snyder
+ * 
+ */
+
+public class Candidate
+{
+    // instance variables
+    private int numVotes;
+    private String name;
+
+    // Constructor for objects of class Candidate
+    public Candidate(String name, int numVotes)
+    {
+        // initialize instance variables
+        this.name = name;
+        this.numVotes = numVotes;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getVotes()
+    {
+        return numVotes;
+    }
+
+    public void setVotes(int n)
+    {
+        numVotes = n;
+    }
+
+    public void setName(String n)
+    {
+        name = n;
+    }
+
+    public String toString()
+    {
+        return name + " received " + numVotes + " votes.";
+    }
+}
+
+/**
+ * Tester class for an array
+ *
+ * Brian Snyder
+ * 2/26/18
+ */
+public class ElectionTesterV8 {
+    public static void main (String args[] ){
+        // initializes array and defines elements of array
+        Candidate[] item = new Candidate[5];
+        item[0] = new Candidate("John Smith", 2);
+        item[1] = new Candidate("Michael Jones", 7);
+        item[2] = new Candidate("Bill Schneider", 27);
+        item[3] = new Candidate("William Anderson", 31);
+        item[4] = new Candidate("Nick Douglass", 14);
+        
+        // calls methods to print results and create table
+        System.out.println("Original results:");
+        createTable(item);
+        
+        System.out.println("\n\n<< Changing Michael Jones to Joseph Barnes >>");
+        changeName(item, "Michael Jones", "Joseph Barnes");
+        createTable(item);
+        
+        System.out.println("\n\n<< Changing William Anderson votes to 100 >>");
+        changeVotes(item, "William Anderson", 100);
+        createTable(item);
+        
+        System.out.println("\n\n<< Changing Bill Schneider to Donald Stevens and votes to 32 >>");
+        changeBoth(item, "Bill Schneider", "Donald Stevens", 32);
+        createTable(item);
+        
+        System.out.println("\n\n<< In position 3, add Jeffery Hamilton, 23 votes >>");
+        insertItem(item, 3, "Jeffery Hamilton", 23);
+        createTable(item);
+        
+        System.out.println("\n\n<< Before John Smith, add Jason Lexington, 13 votes >>");
+        insertItem2(item, "John Smith", "Jason Lexington" ,13);
+        createTable(item);
+        
+        System.out.println("\n\n<< Delete location 3 >>");
+        deleteByLoc(item, 3);
+        createTable(item);
+        
+        System.out.println("\n\n<< Delete Jason Lexington >>");
+        deleteByName(item, "Jason Lexington");
+        createTable(item);
+    }
+    // method that prints the results
+    public static void printResults(Candidate[] item) {
+        System.out.println("Raw Election Data:");
+        System.out.println("");
+        for (int i = 0; i < item.length; i++) {
+            // using toString(), code traverses through array to print the results for each candidate
+            // if item was not removed
+            if (item[i] != null) {
+                System.out.println(item[i]);
+            }
+        }
+    }
+    // method that counts the total number of votes
+    public static int countsTotal(Candidate[] item) {
+        int total = 0;
+        for (int i = 0; i < item.length; i++) {
+            // adds number of votes from each candidate together to get total
+            // if item was not removed
+            if (item[i] != null) {
+                total += item[i].getVotes();
+            }
+        }
+        return total; 
+    }
+    // method that creates a table for the results
+    public static void createTable(Candidate[] item) {
+        // makes an array for percentages
+        double[] percents = new double[item.length];
+        // creates table
+        System.out.println("\nElection Results:");
+        System.out.printf("%27s %19s%n", "Votes", "% of Total");
+        System.out.printf("%9s %19s %15s%n", "Candidate", "Received", "Votes");
+        System.out.println("------------------------------------------------");
+        for (int i = 0; i < item.length; i++) {
+            // if item was not removed
+            if (item[i] != null) {
+                // calculates percentage of votes each candidate has
+                percents[i] = (100 *(item[i].getVotes() / ((double)countsTotal(item))));
+                // prints results for each candidate
+                System.out.printf("%-23s %3d %17.2f%n", item[i].getName(), item[i].getVotes(), percents[i]); 
+            }
+        }
+        System.out.println("\nTotal number of votes case in election: " + countsTotal(item));
+    }
+    // method that replaces the name of a candidate
+    public static void changeName(Candidate[] item, String find, String replace) {
+        for (int i = 0; i < item.length; i++) {
+            // if name if found in array and if item was not removed
+            if ((item[i] != null) && (item[i].getName().equals(find))) {
+                // replaces name
+                item[i].setName(replace);
+            }
+        }
+    }
+    // method that replaces the votes of a candidate
+    public static void changeVotes(Candidate[] item, String find, int votes) {
+        for (int i = 0; i < item.length; i++) {
+             // if name if found in array and if item was not removed
+            if ((item[i] != null) && (item[i].getName().equals(find))) {
+                // replaces votes
+                item[i].setVotes(votes);
+            }
+        }
+    }
+    // method that replaces both the name and votes of a candidate
+    public static void changeBoth(Candidate[] item, String find, String replace, int votes) {
+        for (int i = 0; i < item.length; i++) {
+             // if name if found in array and if item was not removed
+            if ((item[i] != null) && (item[i].getName().equals(find))) {
+                // replaces name and votes
+                item[i].setName(replace);
+                item[i].setVotes(votes);
+            }
+        }
+    }
+    // method that inserts an item at the specific location
+    public static void insertItem(Candidate[] item, int location, String name, int votes) {
+        // move items down in the array - last item is lost
+        for (int i = item.length - 1; i > location; i--) {
+            item[i] = item[i - 1];
+        }
+        item[location] = new Candidate(name, votes);
+    }
+    // method that inserts an item after a specified item
+    public static void insertItem2(Candidate[] item, String find, String name, int votes) {
+        int location = 0;
+        // find location of item you want to insert before
+        for (int i = 0; i < item.length; i++) {
+            // if name is found and item was not removed
+            if ((item[i] != null) && (item[i].getName().equals(find))) {
+                // location is set to index
+                location = i;
+                break;
+                // otherwise location is set to -1
+            } else if (item[i] == null) {
+                location = i;
+                break;
+            }
+        }
+        // move items down in the array - last item is lost
+        for (int i = item.length - 1; i > location; i--) {
+            item[i] = item[i -1];
+        }
+        item[location] = new Candidate(name, votes);
+    }
+    // method that deletes an item by location
+    public static void deleteByLoc(Candidate[] item, int location) {
+        // if location is valid
+        if ((location > 0) && (location < item.length)) {
+            //move items up in the array
+            for (int i = location; i < item.length - 1; i++) {
+                item[i] = item[i+1];
+            }
+            // sets last value to null
+            item[item.length - 1] = null;
+        }
+    }
+    // method that deletes an item by name
+    public static void deleteByName(Candidate[] item, String find) {
+        int location = 0; 
+        int index;
+        // find location of item you want to delete
+        for (index = 0; index < item.length; index++) {
+            // if name is found and if item was not removed
+            if ((item[index] != null) && (item[index].getName().equals(find))) {
+                // location is set to index
+                location = index;
+                break;
+                // otherwise location is set to -1
+            } else if (item[index] == null) {
+                location = -1;
+                break;
+            }
+        }
+        if ((index != item.length) && (location >= 0)) {
+            //move items up in the array
+            for (index = location; index < item.length - 1; index++) {
+                item[index] = item[index + 1];
+            }
+            item[item.length - 1] = null;
+        }
+    }
+}
