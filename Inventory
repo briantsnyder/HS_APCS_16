@@ -1,0 +1,699 @@
+ /**
+ * This class defines an InventoryItem object.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+
+public class InventoryItem
+{
+    // instance variables
+    private int inStock;
+    private String name;
+
+    // Constructor for objects of class InventoryItem
+    public InventoryItem(String name, int inStock)
+    {
+        // initialize instance variables
+        this.name = name;
+        this.inStock = inStock;
+    }
+    
+    public int getNumInStock()
+    {
+        return inStock;
+    }
+    
+    public void setStock(int num)
+    {
+        inStock = num;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public void setName(String n)
+    {
+        name = n;
+    }
+    
+    public String toString()
+    {
+        return name + ": " + inStock + " in stock";
+    }
+}
+
+/**
+ * The TestInventory1 class demonstrations traversing an array.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+
+public class TestInventory1
+{
+    public static void main(String[] args)
+    {
+        InventoryItem[] inventory = new InventoryItem[5];
+
+        // create inventory
+        inventory[0] = new InventoryItem("Towel", 200);
+        inventory[1] = new InventoryItem("Cleaning Cart", 30);
+        inventory[2] = new InventoryItem("Toiletry Sets", 100);
+        inventory[3] = new InventoryItem("Coffee Set", 300);
+        inventory[4] = new InventoryItem("Pillows", 50);
+
+        System.out.println("        Inventory List        ");
+        System.out.println("______________________________");
+        printInventory(inventory);
+        
+        System.out.println();
+        System.out.println();
+        System.out.println("The item with the largest quantity is:");
+        findLargest(inventory);
+    }
+
+    public static void printInventory(InventoryItem[] itemList)
+    {
+        for(int i = 0; i < itemList.length; i++)
+           System.out.println(itemList[i]);
+    }
+    
+    public static void findLargest(InventoryItem [] itemList)
+    {
+        double max;
+        int index;
+
+        if (itemList.length != 0)
+        {
+            max = itemList[0].getNumInStock();
+            index = 0;
+
+            for (int i = 1; i < itemList.length; i++)
+            {
+                if (max < itemList[i].getNumInStock())
+                {
+                    max = itemList[i].getNumInStock();
+                    index = i;
+                }
+            }
+            System.out.println(itemList[index]);
+            return;
+        }
+        System.out.println("There are no items in stock.");
+    }
+}
+
+/**
+ * The TestInventory2 class demonstrations traversing an ArrayList.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+*/
+import java.util.*;
+public class TestInventory2
+{
+    public static void main(String[] args)
+    {
+        List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+        
+        // create inventory
+        inventory.add( new InventoryItem("Towel", 200));
+        inventory.add( new InventoryItem("Cleaning Cart", 30));        
+        inventory.add( new InventoryItem("Toiletry Sets", 100));
+        inventory.add( new InventoryItem("Coffee Set", 300));
+        inventory.add( new InventoryItem("Pillows", 50));    
+        
+        System.out.println("        Inventory List        ");
+        System.out.println("______________________________");
+        printInventory(inventory);
+        
+        System.out.println();
+        System.out.println();
+        System.out.println("The item with the largest quantity is:");
+        findLargest(inventory);
+    }
+    
+    public static void printInventory(List<InventoryItem> itemList) 
+    {
+        for(InventoryItem item: itemList)
+           System.out.println(item);
+    }
+    
+    public static void findLargest(List<InventoryItem> itemList)
+    {
+        double max;
+        int index;
+
+        if (itemList.size() != 0)
+        {
+            max = itemList.get(0).getNumInStock();
+            index = 0;
+
+            for (int i = 1; i < itemList.size(); i++)
+            {
+                if (max < itemList.get(i).getNumInStock())
+                {
+                    max = itemList.get(i).getNumInStock();
+                    index = i;
+                }
+            }
+            System.out.println(itemList.get(index));
+            return;
+        }
+        System.out.println("There are no items in stock.");
+    }
+}
+
+ /**
+ * This class demonstrates the toString method.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+
+class ComputerLanguage
+{
+    private String language;
+    private double version;
+
+    ComputerLanguage(String language, double version)
+    {
+        this.language = language;
+        this.version = version;
+    }
+
+    public String toString()
+    {
+        return String.format("%-12s %5.2f", this.language, this.version);
+    }
+}
+
+public class TestToString
+{
+    public static void main(String[] args)
+    {
+        ComputerLanguage example1 = new ComputerLanguage("Java", 8.0);
+        ComputerLanguage example2 = new ComputerLanguage("Python", 3.1);
+        
+        System.out.println(" Computer Programming ");
+        System.out.println("----------------------");
+        System.out.println("Language     Version");
+
+        System.out.println(example1); //uses toString() method
+        System.out.println(example2); //uses toString() method
+    }
+}
+
+ /**
+ * The TestInventory3 class demonstrations replacing
+ * elements within an array.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+
+public class TestInventory3
+{
+    public static void main(String[] args)
+    {
+        InventoryItem[] inventory = new InventoryItem[5];
+
+        // create inventory
+        inventory[0] = new InventoryItem("Towel", 200);
+        inventory[1] = new InventoryItem("Cleaning Cart", 30);
+        inventory[2] = new InventoryItem("Toiletry Sets", 100);
+        inventory[3] = new InventoryItem("Coffee Set", 300);
+        inventory[4] = new InventoryItem("Pillows", 50);
+
+        System.out.println("   Inventory List (before change) ");
+        System.out.println("__________________________________");
+        System.out.println();
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+
+        changeItem(inventory, "Coffee Set", "Beverage Gift Set");
+        System.out.println("<< Replacing Coffee Set with Beverage Gift Set >>");
+        System.out.println();
+        System.out.println("    Inventory List (after change)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+    }
+
+    public static void printInventory(InventoryItem[] itemList)
+    {
+        for(int i = 0; i < itemList.length; i++)
+           System.out.println(itemList[i]);
+    }
+
+    public static void changeItem(InventoryItem[] itemList, String find, String replace)
+    {
+       for(int index = 0; index < itemList.length; index++)
+          if(itemList[index].getName().equals(find))
+               itemList[index].setName(replace);
+    }
+}
+
+ /**
+ * The TestInventory4 class demonstrations replacing
+ * elements within an ArrayList.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+import java.util.*;
+public class TestInventory4
+{
+    public static void main(String[] args)
+    {
+        List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+
+        // create inventory
+        inventory.add( new InventoryItem("Towel", 200));
+        inventory.add( new InventoryItem("Cleaning Cart", 30));
+        inventory.add( new InventoryItem("Toiletry Sets", 100));
+        inventory.add( new InventoryItem("Coffee Set", 300));
+        inventory.add( new InventoryItem("Pillows", 50));
+
+        System.out.println("   Inventory List (before change) ");
+        System.out.println("______________________________");
+        System.out.println();
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+
+        changeItem(inventory, "Coffee Set", "Beverage Gift Set");
+        System.out.println("<< Replacing Coffee Set with Beverage Gift Set >>");
+        System.out.println();
+        System.out.println("    Inventory List (after change)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+    }
+
+    public static void printInventory(List<InventoryItem> itemList) 
+    {
+        for(InventoryItem item: itemList)
+           System.out.println(item);
+    }
+    
+    public static void changeItem(List<InventoryItem> itemList, String find, String replace)
+    {
+       for(int index = 0; index < itemList.size(); index++)
+          if(itemList.get(index).getName().equals(find))
+               itemList.get(index).setName(replace);
+    }
+}
+
+ /**
+ * The TestInventory5 class demonstrations inserting 
+ * elements into an array.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+
+public class TestInventory5
+{
+    public static void main(String[] args)
+    {
+        InventoryItem[] inventory = new InventoryItem[5];
+
+        // create inventory
+        inventory[0] = new InventoryItem("Towel", 200);
+        inventory[1] = new InventoryItem("Cleaning Cart", 30);
+        inventory[2] = new InventoryItem("Toiletry Sets", 100);
+        inventory[3] = new InventoryItem("Coffee Set", 300);
+        inventory[4] = new InventoryItem("Pillows", 50);
+
+        System.out.println("   Inventory List (before insert) ");
+        System.out.println("___________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+        insertItem1(inventory, 2, "Relaxation Kit", 1000);
+        System.out.println("<< At index 2, inserting Relaxation Kit, qty 1000 >>");
+        System.out.println();
+        System.out.println("    Inventory List (after insert)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+        insertItem2(inventory, "Towel", "Hair Dryer", 500);
+        System.out.println("<< Before Towel, inserting Hair Dryer, qty 500 >>");
+        System.out.println();
+        System.out.println("    Inventory List (after insert)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+    }
+
+    public static void printInventory(InventoryItem[] itemList)
+    {
+        for(int i = 0; i < itemList.length; i++)
+           System.out.println(itemList[i]);
+    }
+
+    public static void changeItem(InventoryItem[] itemList, String find, String replace)
+    {
+       for(int index = 0; index < itemList.length; index++)
+          if(itemList[index].getName().equals(find))
+               itemList[index].setName(replace);
+    }
+
+    public static void insertItem1(InventoryItem[] itemList, int location, String addN, int addS)
+    {
+       //move items down in the array - last item is lost
+       for(int index = itemList.length - 1; index > location; index--)
+           itemList[index] = itemList[index-1];
+
+       itemList[location] = new InventoryItem(addN, addS);
+    }
+
+    public static void insertItem2(InventoryItem[] itemList, String find, String addN, int addS)
+    {
+        int location = 0;
+
+        // find location of item you want to insert before
+        for(int index = 0; index < itemList.length; index++)
+            if(itemList[index].getName().equals(find))
+                location = index;
+
+        //move items down in the array - last item is lost
+        for(int index = itemList.length - 1; index > location; index--)
+            itemList[index] = itemList[index-1];
+
+        itemList[location] = new InventoryItem(addN, addS);
+    }
+}
+
+ /**
+ * The TestInventory6 class demonstrations inserting 
+ * elements into an ArrayList.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+import java.util.*;
+public class TestInventory6
+{
+    public static void main(String[] args)
+    {
+        List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+
+        // create inventory
+        inventory.add( new InventoryItem("Towel", 200));
+        inventory.add( new InventoryItem("Cleaning Cart", 30));
+        inventory.add( new InventoryItem("Toiletry Sets", 100));
+        inventory.add( new InventoryItem("Coffee Set", 300));
+        inventory.add( new InventoryItem("Pillows", 50));
+        
+        System.out.println("   Inventory List (before insert) ");
+        System.out.println("___________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+        insertItem1(inventory, 2, "Relaxation Kit", 1000);
+        System.out.println("<< At index 2, inserting Relaxation Kit, qty 1000 >>");
+        System.out.println();
+        System.out.println("    Inventory List (after insert)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+        insertItem2(inventory, "Towel", "Hair Dryer", 500);
+        System.out.println("<< Before Towel, inserting Hair Dryer, qty 500 >>");
+        System.out.println();
+        System.out.println("    Inventory List (after insert)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+    }
+
+    public static void printInventory(List<InventoryItem> itemList) 
+    {
+        for(InventoryItem item: itemList)
+            System.out.println(item);
+    }
+    
+    public static void changeItem(List<InventoryItem> itemList, String find, String replace)
+    {
+        for(int index = 0; index < itemList.size(); index++)
+            if(itemList.get(index).getName().equals(find))
+                itemList.get(index).setName(replace);
+    }
+    
+    public static void insertItem1(List<InventoryItem> itemList, int location, String addN, int addS)
+    {
+        // insert item into ArrayList
+        itemList.add(location, new InventoryItem(addN, addS));
+    }
+
+    public static void insertItem2(List<InventoryItem> itemList, String find, String addN, int addS)
+    {
+        int location = 0;
+
+        // find location of item you want to insert before
+        for(int index = 0; index < itemList.size(); index++)
+            if(itemList.get(index).getName().equals(find))
+                location = index;
+
+        // insert item into ArrayList
+        itemList.add(location, new InventoryItem(addN, addS));
+    }
+}
+
+/**
+ * The TestInventory7 class demonstrations deleting 
+ * elements from an array.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+*/
+
+public class TestInventory7
+{
+    public static void main(String[] args)
+    {
+        InventoryItem[] inventory = new InventoryItem[5];
+
+        // create inventory
+        inventory[0] = new InventoryItem("Towel", 200);
+        inventory[1] = new InventoryItem("Cleaning Cart", 30);
+        inventory[2] = new InventoryItem("Toiletry Sets", 100);
+        inventory[3] = new InventoryItem("Coffee Set", 300);
+        inventory[4] = new InventoryItem("Pillows", 50);
+
+        System.out.println("   Inventory List (before deletions) ");
+        System.out.println("_____________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+        
+        deleteByLoc(inventory, 2);
+        System.out.println("<< Delete item at index 2 >>");
+        System.out.println();
+        System.out.println("    Inventory List (after deletion)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+        
+        deleteByName(inventory, "Towel");
+        System.out.println("<< Delete Towel item >>");
+        System.out.println();
+        System.out.println("    Inventory List (after deletion)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+    }
+
+    public static void printInventory(InventoryItem[] itemList)
+    {
+        for(int i = 0; i < itemList.length; i++)
+             if(itemList[i] != null)
+                 System.out.println(itemList[i]);
+    }
+
+    public static void changeItem(InventoryItem[] itemList, String find, String replace)
+    {
+        for(int index = 0; index < itemList.length; index++)
+            if((itemList[index] != null) && (itemList[index].getName().equals(find)))
+                itemList[index].setName(replace);
+    }
+
+    public static void insertItem1(InventoryItem[] itemList, int location, String addN, int addS)
+    {
+        //move items down in the array - last item is lost
+        for(int index = itemList.length - 1; index > location; index--)
+            itemList[index] = itemList[index-1];
+        itemList[location] = new InventoryItem(addN, addS);
+    }
+
+    public static void insertItem2(InventoryItem[] itemList, String find, String addN, int addS)
+    {
+        int location = 0;
+
+        // find location of item you want to insert before
+        for(int index = 0; index < itemList.length; index++)
+        {
+            if((itemList[index] != null) && (itemList[index].getName().equals(find)))
+            {
+                location = index;
+                break;
+            }
+            else if(itemList[index] == null)
+            {
+                location = index;
+                break;
+            }
+        }
+
+        //move items down in the array - last item is lost
+        for(int index = itemList.length - 1; index > location; index--)
+            itemList[index] = itemList[index-1];
+
+        itemList[location] = new InventoryItem(addN, addS);
+    }
+
+    public static void deleteByLoc(InventoryItem[] itemList, int location)
+    {
+        if ((location > 0) && (location < itemList.length))
+        {
+            //move items up in the array -
+            for(int index = location; index < itemList.length -1; index++)
+                itemList[index] = itemList[index + 1];
+
+            itemList[itemList.length-1] = null;
+        }
+    }
+
+    public static void deleteByName(InventoryItem[] itemList, String find)
+    {
+        int location = 0;
+        int index;
+
+        // find location of item you want to delete
+        for(index = 0; index < itemList.length; index++)
+            if((itemList[index] != null) && (itemList[index].getName().equals(find)))
+            {
+                location = index;
+                break;
+            }
+            else if(itemList[index] == null)
+            {
+                location = -1;
+                break;
+            }
+
+        if ((index != itemList.length) && (location >= 0))
+        { 
+            //move items up in the array
+            for(index = location; index < itemList.length -1; index++)
+                itemList[index] = itemList[index + 1];
+
+            itemList[itemList.length-1] = null;
+        }
+    }
+}
+
+ /**
+ * The TestInventory8 class demonstrations deleting 
+ * elements from an ArrayList.
+ *
+ * @author Jean E. Sammet
+ * @version 06/16/17
+ */
+import java.util.*;
+public class TestInventory8
+{
+    public static void main(String[] args)
+    {
+        List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+        // create inventory
+        inventory.add( new InventoryItem("Towel", 200));
+        inventory.add( new InventoryItem("Cleaning Cart", 30));
+        inventory.add( new InventoryItem("Toiletry Sets", 100));
+        inventory.add( new InventoryItem("Coffee Set", 300));
+        inventory.add( new InventoryItem("Pillows", 50));
+
+        System.out.println("   Inventory List (before deletions) ");
+        System.out.println("_____________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+
+        deleteByLoc(inventory, 2);
+        System.out.println("<< Delete item at index 2 >>");
+        System.out.println();
+        System.out.println("    Inventory List (after deletion)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+        System.out.println();
+        System.out.println();
+
+        deleteByName(inventory, "Towel");
+        System.out.println("<< Delete Towel item >>");
+        System.out.println();
+        System.out.println("    Inventory List (after deletion)        ");
+        System.out.println("____________________________________");
+        printInventory(inventory);
+    }
+
+    public static void printInventory(List<InventoryItem> itemList) 
+    {
+        for(InventoryItem item: itemList)
+            System.out.println(item);
+    }
+    
+    public static void changeItem(List<InventoryItem> itemList, String find, String replace)
+    {
+       for(int index = 0; index < itemList.size(); index++)
+           if(itemList.get(index).getName().equals(find))
+               itemList.get(index).setName(replace);
+    }
+    
+    public static void insertItem1(List<InventoryItem> itemList, int location, String addN, int addS)
+    {
+        // insert item into ArrayList
+        itemList.add(location, new InventoryItem(addN, addS));
+    }
+
+    public static void insertItem2(List<InventoryItem> itemList, String find, String addN, int addS)
+    {
+        int location = 0;
+
+        // find location of item you want to insert before
+        for(int index = 0; index < itemList.size(); index++)
+            if(itemList.get(index).getName().equals(find))
+                location = index;
+
+        // insert item into ArrayList
+        itemList.add(location, new InventoryItem(addN, addS));
+    }
+
+    public static void deleteByLoc(List<InventoryItem> itemList, int location)
+    {
+        // delete item from ArrayList
+        itemList.remove(location);
+    }
+
+    public static void deleteByName(List<InventoryItem> itemList, String find)
+    {
+        int location = 0;
+        int index;
+
+        // find location of item you want to delete
+        for(index = 0; index < itemList.size(); index++)
+        {
+            if(itemList.get(index).getName().equals(find))
+            {
+                location = index;
+                break;
+            }
+        }
+        
+        // delete item from ArrayList
+        if (index != itemList.size())
+            itemList.remove(location);
+    }
+}
