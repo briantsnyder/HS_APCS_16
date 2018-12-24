@@ -1,0 +1,138 @@
+/**
+ * Make a grade book program that includes students and theri grades
+ * that will traverse, replace, insert, and delete items within the 
+ * grade book
+ *
+ * Brian Snyder
+ * 2/27/18
+ * 
+ */
+import java.util.*;
+public class Student {
+    // initializes instance variables of name and quiz scores
+    public String name;
+    public ArrayList<Integer> quizzes = new ArrayList<Integer>();
+    // constructor
+    public Student(String name, int quiz1, int quiz2, int quiz3, int quiz4, int quiz5) {
+        this.name = name;
+        quizzes.add(quiz1);
+        quizzes.add(quiz2);
+        quizzes.add(quiz3);
+        quizzes.add(quiz4);
+        quizzes.add(quiz5);
+    }
+    // getter method that returns a quiz score 
+    public double getQuiz(int index) {
+        return quizzes.get(index);
+    }
+    // setter method that sets the value of a quiz
+    public void setQuiz(int index, int quizScore) {
+        quizzes.set(index, quizScore);
+    }
+    // getter method that returns the student name
+    public String getName() {
+        return name;
+    }
+    // setter method that sets the name of the student
+    public void setName(String replace) {
+        name = replace;
+    }
+    // overriden method for toString to print results
+    public String toString() {
+        return String.format("%-17s %3d %5d %5d %5d %5d", name, quizzes.get(0), quizzes.get(1), quizzes.get(2), quizzes.get(3), quizzes.get(4));
+    }
+}
+
+/**
+ * Tester class for student
+ *
+ * Brian Snyder
+ * 2/27/18
+ * 
+ */
+// imports necesary files
+import java.util.*;
+public class StudentTester {
+    public static void main(String args[]) {
+        // initializes arrayList and adds students to List
+        List<Student> students = new ArrayList<Student>(12);
+        students.add( new Student("Bill Smith", 80, 90, 79, 88, 92));
+        students.add( new Student("William Johnson", 98, 99, 91, 95, 93));
+        students.add( new Student("Sarah Hunter", 81, 87, 96, 79, 90));
+        students.add( new Student("Brian Anderson", 87, 69, 93, 88, 91));
+        students.add( new Student("Alexandra Stevens", 88, 95, 91, 90, 86));
+        // prints original gradebook
+        System.out.println("Starting Gradebook");
+        printResults(students);
+        // changes name of a student
+        System.out.println("\n\n<< Changing William Johnson name to John Paul >>");
+        setName(students, "William Johnson", "John Paul");
+        printResults(students);
+        // changes a quiz grade of a student
+        System.out.println("\n\n<< Changing Bill Smith third quiz to 85 >>");
+        setQuiz(students, 0, 2, 85);
+        printResults(students);
+        // replaces a student with a new student
+        System.out.println("\n\n<< Replacing Brian Anderson with Joseph Baker >>");
+        replaceStudent(students, "Brian Anderson", new Student("Joseph Baker", 94, 87, 89, 86, 93));
+        printResults(students);
+        // adds a new student at a specific location
+        System.out.println("\n\n<< Adding Donna McDonald before Sarah Huner >>");
+        addStudent(students, "Sarah Hunter", new Student("Donna McDonald", 67, 89, 91, 86, 70));
+        printResults(students);
+        // deletes a student
+        System.out.println("\n\n<< Deleting Alexandra Stevens >>");
+        deleteStudent(students, "Alexandra Stevens");
+        printResults(students);
+    }
+    // method that prints the results
+    public static void printResults(List<Student> students) {
+        System.out.printf("\n %14s", "Student name");
+        for (int i = 1; i < 6; i++) {
+            System.out.printf("%6s", ("Q" + i));
+        }
+        System.out.println("\n------------------------------------------------");
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(students.get(i));
+        }
+    }
+    // method that replaces the name of a student
+    public static void setName(List<Student> students, String find, String replace) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getName().equals(find)) {
+                students.get(i).setName(replace);
+            }
+        }
+    }
+    // method that replaces the grade of a quiz
+    public static void setQuiz(List<Student> students, int whichStudent, int index, int replace) {
+        students.get(whichStudent).setQuiz(index, replace);
+    }
+    // method that replaces a student with a new one
+    public static void replaceStudent(List<Student> students, String find, Student newStudent) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getName().equals(find)) {
+                students.add(i, newStudent);
+                students.remove(i + 1);
+            }
+        }
+    }
+    // method that adds a new student
+    public static void addStudent(List<Student> students, String find, Student newStudent) {
+        int location = 0;
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getName().equals(find)) {
+                location = i;
+            }
+        }
+        students.add(location, newStudent);
+    }
+    // method that deletes a student
+    public static void deleteStudent(List<Student> students, String find) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getName().equals(find)) {
+                students.remove(i);
+            }
+        }
+    }
+}
